@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:16.2' # TODO: postgres version copy-paste
+    environment:
+      - 'POSTGRES_DB=conferences'
+      - 'POSTGRES_PASSWORD=password'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '15432:5432' # TODO: how to make port configurable

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="2024-04-17_00:30__populateThemes" author="yuriiknowsjava">
+        <insert tableName="themes">
+            <column name="tag">java</column>
+            <column name="description">Write once run everywhere</column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">maven</column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">clojure</column>
+            <column name="description">Clojure is a dynamic, general-purpose programming language,
+                combining the approachability and interactive development of a scripting language
+            </column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">spring boot</column>
+            <column name="description">Clojure is a dynamic, general-purpose programming language,
+                combining the approachability and interactive development of a scripting language
+            </column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">kubernetes</column>
+            <column name="description">also known as K8s, is an open-source system for automating deployment,
+                scaling, and management of containerized applications.
+            </column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">docker</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

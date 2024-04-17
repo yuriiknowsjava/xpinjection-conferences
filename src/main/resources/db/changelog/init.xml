@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-04-16_17:11__createConferencesTable" author="yuriiknowsjava">
+        <createTable tableName="conferences">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="start_date" type="TIMESTAMP"/>
+            <column name="end_date" type="TIMESTAMP"/>
+            <column name="description" type="VARCHAR(1023)" defaultValue=""/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_17:13__createThemeTable" author="yuriiknowsjava">
+        <createTable tableName="themes">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tag" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)" defaultValue=""/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_17:18__createLinkBetweenConferencesAndThemes" author="yuriiknowsjava">
+        <createTable tableName="conferences_themes">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="conference_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_conferences_themes"
+                        referencedTableName="conferences"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+            <column name="theme_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_themes_conferences"
+                        referencedTableName="themes"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_17:28__createSpeakersTable" author="yuriiknowsjava">
+        <createTable tableName="speakers">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1023)" defaultValue=""/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_17:40__createTalkType" author="yuriiknowsjava">
+        <sql>CREATE TYPE talk_type AS ENUM ('LECTURE', 'WORKSHOP', 'MASTERCLASS')</sql>
+    </changeSet>
+
+    <changeSet id="2024-04-16_17:50__createTalksTable" author="yuriiknowsjava">
+        <createTable tableName="talks">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1023)" defaultValue=""/>
+            <column name="conference_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_conferences_talks"
+                        referencedTableName="conferences"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+            <column name="type" type="talk_type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="TIMESTAMP"/>
+            <column name="end_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_18:03__linkSpeakersAndTalks" author="yuriiknowsjava">
+        <createTable tableName="talks_speakers">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="talk_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_talks_speakers"
+                        referencedTableName="talks"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+            <column name="speaker_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_speakers_talks"
+                        referencedTableName="speakers"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-04-16_18:08__linkTalksAndThemes" author="yuriiknowsjava">
+        <createTable tableName="talks_themes">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="talk_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_talks_themes"
+                        referencedTableName="talks"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+            <column name="theme_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_themes_talks"
+                        referencedTableName="themes"
+                        referencedColumnNames="id"
+                        nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
