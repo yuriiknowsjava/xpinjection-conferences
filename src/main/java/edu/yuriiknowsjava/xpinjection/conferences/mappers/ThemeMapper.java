@@ -8,7 +8,7 @@ public class ThemeMapper {
     public static ThemeDto toDto(Theme theme) {
         return new ThemeDto(
                 theme.getId(),
-                theme.getName(),
+                theme.getTag(),
                 theme.getDescription()
         );
     }

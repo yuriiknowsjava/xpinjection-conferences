@@ -57,23 +57,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2024-04-16_17:28__createSpeakersTable" author="yuriiknowsjava">
-        <createTable tableName="speakers">
-            <column name="id" autoIncrement="true" type="BIGINT">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="first_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="VARCHAR(1023)" defaultValue="">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="2024-04-16_17:40__createTalkType" author="yuriiknowsjava">
         <sql>CREATE TYPE talk_type AS ENUM ('LECTURE', 'WORKSHOP', 'MASTERCLASS')</sql>
     </changeSet>
@@ -99,28 +82,6 @@
             </column>
             <column name="start_date" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="end_date" type="TIMESTAMP WITH TIME ZONE"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="2024-04-16_18:03__linkSpeakersAndTalks" author="yuriiknowsjava">
-        <createTable tableName="talks_speakers">
-            <column name="id" autoIncrement="true" type="BIGINT">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="talk_id" type="BIGINT">
-                <constraints
-                        foreignKeyName="fk_talks_speakers"
-                        referencedTableName="talks"
-                        referencedColumnNames="id"
-                        nullable="false"/>
-            </column>
-            <column name="speaker_id" type="BIGINT">
-                <constraints
-                        foreignKeyName="fk_speakers_talks"
-                        referencedTableName="speakers"
-                        referencedColumnNames="id"
-                        nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 
