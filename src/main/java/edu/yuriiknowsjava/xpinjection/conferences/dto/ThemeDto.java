@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 public record ThemeDto(
         BigInteger id,
-        String name,
+        String tag,
         String description
 ) {
 }

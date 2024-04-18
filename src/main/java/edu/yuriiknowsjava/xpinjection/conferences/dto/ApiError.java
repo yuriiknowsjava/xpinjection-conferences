@@ -1,4 +1,9 @@
 package edu.yuriiknowsjava.xpinjection.conferences.dto;
 
-public record ApiError(String message) {
+import java.util.List;
+
+public record ApiError(List<String> messages) {
+    public ApiError(String message) {
+        this(List.of(message));
+    }
 }

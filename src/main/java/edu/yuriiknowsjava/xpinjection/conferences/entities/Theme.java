@@ -45,7 +45,7 @@ public class Theme {
 
     @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-    @OrderBy("id")
+    @OrderBy("name")
     @JoinTable(name = "conferences_themes",
             joinColumns = @JoinColumn(name = "theme_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "conference_id", referencedColumnName = "id"))

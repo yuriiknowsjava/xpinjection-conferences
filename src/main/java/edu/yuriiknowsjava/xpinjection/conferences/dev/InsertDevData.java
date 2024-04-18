@@ -14,6 +14,7 @@ import edu.yuriiknowsjava.xpinjection.conferences.entities.Conference;
 import edu.yuriiknowsjava.xpinjection.conferences.entities.Theme;
 import edu.yuriiknowsjava.xpinjection.conferences.repositories.ConferenceRepository;
 import edu.yuriiknowsjava.xpinjection.conferences.repositories.ThemeRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@AllArgsConstructor
 @Slf4j
 @Profile("dev")
 @Component
 class InsertDevData implements CommandLineRunner {
     private final ConferenceRepository conferenceRepository;
     private final ThemeRepository themeRepository;
-
-    @Autowired
-    InsertDevData(ConferenceRepository conferenceRepository, ThemeRepository themeRepository) {
-        this.conferenceRepository = conferenceRepository;
-        this.themeRepository = themeRepository;
-    }
 
     @Transactional
     @Override

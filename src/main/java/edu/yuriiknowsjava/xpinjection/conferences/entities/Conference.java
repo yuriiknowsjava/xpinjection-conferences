@@ -12,8 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedAttributeNode;
-import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
@@ -21,16 +19,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedEntityGraph(
-        name = "Conference.themes",
-        attributeNodes = @NamedAttributeNode("themes")
-)
 @Entity(name = "conferences")
 public class Conference {
     private static final String GENERATOR_NAME = "conferences_id_seq";
@@ -53,8 +49,11 @@ public class Conference {
     @Column(name = "description", nullable = false)
     private String description = "";
 
+    // see more https://medium.com/@kiarash.shamaii/what-is-n-1-query-generate-problem-in-spring-data-jpa-and-how-to-solve-it-2f3b9f1a7a0b
+    // https://stackoverflow.com/questions/70567098/manytomany-n1-problem-all-right-side-not-being-returned
     @Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "conferences")
-    @OrderBy("id")
+    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "conferences")
+    @OrderBy("tag")
     private Set<Theme> themes = new HashSet<>();
 }

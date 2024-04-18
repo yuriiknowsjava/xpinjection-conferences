@@ -16,6 +16,7 @@ public record ConferenceDto(
     public ConferenceDto {
         name = name == null ? null : name.strip();
         description = description == null ? "" : description.strip();
+        themes = themes == null ? Set.of() : themes;
     }
 
     public ConferenceDto withId(BigInteger id) {
