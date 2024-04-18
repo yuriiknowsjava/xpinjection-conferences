@@ -33,5 +33,17 @@
         <insert tableName="themes">
             <column name="tag">docker</column>
         </insert>
+        <insert tableName="themes">
+            <column name="tag">javascript</column>
+            <column name="description">JavaScript (JS) is a lightweight interpreted (or just-in-time compiled)
+                programming language with first-class functions.
+            </column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">nodejs</column>
+        </insert>
+        <insert tableName="themes">
+            <column name="tag">react</column>
+        </insert>
     </changeSet>
 </databaseChangeLog>
