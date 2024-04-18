@@ -2,8 +2,8 @@ package edu.yuriiknowsjava.xpinjection.conferences.dto;
 
 import java.util.List;
 
-public record ApiError(List<String> messages) {
-    public ApiError(String message) {
+public record ApiErrorDto(List<String> messages) {
+    public ApiErrorDto(String message) {
         this(List.of(message));
     }
 }

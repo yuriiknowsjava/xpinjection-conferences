@@ -50,9 +50,4 @@ public class Theme {
             joinColumns = @JoinColumn(name = "theme_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "conference_id", referencedColumnName = "id"))
     private Set<Conference> conferences = new HashSet<>();
-
-    public void addConference(Conference conference) {
-        conferences.add(conference);
-        conference.getThemes().add(this);
-    }
 }

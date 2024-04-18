@@ -56,4 +56,9 @@ public class Conference {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "conferences")
     @OrderBy("tag")
     private Set<Theme> themes = new HashSet<>();
+
+    public void addTheme(Theme theme) {
+        themes.add(theme);
+        theme.getConferences().add(this);
+    }
 }

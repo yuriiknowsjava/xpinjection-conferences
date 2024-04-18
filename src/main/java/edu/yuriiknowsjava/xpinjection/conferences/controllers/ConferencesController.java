@@ -2,8 +2,8 @@ package edu.yuriiknowsjava.xpinjection.conferences.controllers;
 
 import java.math.BigInteger;
 
-import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceDto;
-import edu.yuriiknowsjava.xpinjection.conferences.dto.CreationConferenceDto;
+import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceCreationDto;
+import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceReplacementDto;
 import edu.yuriiknowsjava.xpinjection.conferences.services.ConferenceService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -33,14 +33,13 @@ class ConferencesController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createConference(@RequestBody @Valid CreationConferenceDto creationConferenceDto) {
+    public ResponseEntity<?> createConference(@RequestBody @Valid ConferenceCreationDto conferenceCreationDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(conferenceService.createConference(creationConferenceDto));
+                .body(conferenceService.createConference(conferenceCreationDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateConference(@PathVariable BigInteger id, @RequestBody ConferenceDto conferenceDto) {
-        conferenceDto = conferenceDto.withId(id);
-        return ResponseEntity.ok(conferenceService.updateConference(conferenceDto));
+    public ResponseEntity<?> updateConference(@PathVariable BigInteger id, @RequestBody @Valid ConferenceReplacementDto conferenceReplacementDto) {
+        return ResponseEntity.ok(conferenceService.updateConference(id, conferenceReplacementDto));
     }
 }

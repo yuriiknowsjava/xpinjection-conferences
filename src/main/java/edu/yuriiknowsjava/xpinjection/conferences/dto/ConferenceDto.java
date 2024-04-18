@@ -18,8 +18,4 @@ public record ConferenceDto(
         description = description == null ? "" : description.strip();
         themes = themes == null ? Set.of() : themes;
     }
-
-    public ConferenceDto withId(BigInteger id) {
-        return new ConferenceDto(id, name, startDate, endDate, description, themes, speakersCount);
-    }
 }

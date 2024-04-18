@@ -17,7 +17,6 @@ import edu.yuriiknowsjava.xpinjection.conferences.repositories.ThemeRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
@@ -54,7 +53,7 @@ class InsertDevData implements CommandLineRunner {
                 .ifPresentOrElse(
                         doNothing,
                         () -> {
-                            Stream.of(java, springBoot, kubernetes).forEach(theme -> theme.addConference(xpInjection));
+                            Stream.of(java, springBoot, kubernetes).forEach(xpInjection::addTheme);
                             conferenceRepository.save(xpInjection);
                         }
                 );
@@ -68,7 +67,7 @@ class InsertDevData implements CommandLineRunner {
                 .ifPresentOrElse(
                         doNothing,
                         () -> {
-                            Stream.of(java, springBoot, maven).forEach(theme -> theme.addConference(lvivJavaDay));
+                            Stream.of(java, springBoot, maven).forEach(lvivJavaDay::addTheme);
                             conferenceRepository.save(lvivJavaDay);
                         }
                 );
@@ -82,7 +81,7 @@ class InsertDevData implements CommandLineRunner {
                 .ifPresentOrElse(
                         doNothing,
                         () -> {
-                            Stream.of(java, springBoot, maven, kubernetes).forEach(theme -> theme.addConference(devoxx));
+                            Stream.of(java, springBoot, maven, kubernetes).forEach(devoxx::addTheme);
                             conferenceRepository.save(devoxx);
                         });
 
@@ -96,7 +95,7 @@ class InsertDevData implements CommandLineRunner {
                 .ifPresentOrElse(
                         doNothing,
                         () -> {
-                            Stream.of(react, nodejs).forEach(theme -> theme.addConference(fwdays));
+                            Stream.of(react, nodejs).forEach(fwdays::addTheme);
                             conferenceRepository.save(fwdays);
                         });
         log.info("Inserted dev conference data into database for local development.");
