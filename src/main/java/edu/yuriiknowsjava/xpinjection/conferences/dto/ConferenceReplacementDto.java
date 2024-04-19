@@ -7,7 +7,6 @@ import static edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceBeanValid
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

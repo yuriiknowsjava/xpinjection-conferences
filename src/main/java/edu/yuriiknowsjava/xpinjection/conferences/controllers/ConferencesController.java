@@ -1,7 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.controllers;
 
-import java.math.BigInteger;
-
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceCreationDto;
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceReplacementDto;
 import edu.yuriiknowsjava.xpinjection.conferences.services.ConferenceService;
@@ -39,7 +37,7 @@ class ConferencesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateConference(@PathVariable BigInteger id, @RequestBody @Valid ConferenceReplacementDto conferenceReplacementDto) {
+    public ResponseEntity<?> updateConference(@PathVariable Long id, @RequestBody @Valid ConferenceReplacementDto conferenceReplacementDto) {
         return ResponseEntity.ok(conferenceService.updateConference(id, conferenceReplacementDto));
     }
 }

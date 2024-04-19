@@ -5,9 +5,17 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="2024-04-16_17:11__createConferencesTable" author="yuriiknowsjava">
+    <!--
+    By default, in Postgres when you create a primaryKey with autoIncrement="true" type="BIGSERIAL"
+    it creates a sequence (`select * from pg_sequences`) that is not visible for Hibernate (`select * from information_schema.sequences`),
+    and it complains during validation:
+    https://discourse.hibernate.org/t/schema-validation-missing-sequence-users-seq-although-sequence-does-exist/8563/4
+    https://stackoverflow.com/questions/68004102/sequence-exists-but-i-cant-find-it-in-information-schema-sequences-postgresql
+    -->
+
+    <changeSet id="1_createConferencesTable" author="yuriiknowsjava">
         <createTable tableName="conferences">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -20,10 +28,13 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2_addSequenceToConferences" author="yuriiknowsjava">
+        <addAutoIncrement tableName="conferences" columnName="id" startWith="1" incrementBy="1" generationType="SEQUENCE"/>
+    </changeSet>
 
-    <changeSet id="2024-04-16_17:13__createThemeTable" author="yuriiknowsjava">
+    <changeSet id="3_createThemeTable" author="yuriiknowsjava">
         <createTable tableName="themes">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="tag" type="VARCHAR(255)">
@@ -34,10 +45,13 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="4_addSequenceToThemes" author="yuriiknowsjava">
+        <addAutoIncrement tableName="themes" columnName="id" startWith="1" incrementBy="1" generationType="SEQUENCE"/>
+    </changeSet>
 
-    <changeSet id="2024-04-16_17:18__createLinkBetweenConferencesAndThemes" author="yuriiknowsjava">
+    <changeSet id="5_createLinkBetweenConferencesAndThemes" author="yuriiknowsjava">
         <createTable tableName="conferences_themes">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" autoIncrement="true" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
             <column name="conference_id" type="BIGINT">
@@ -57,13 +71,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2024-04-16_17:40__createTalkType" author="yuriiknowsjava">
-        <sql>CREATE TYPE talk_type AS ENUM ('LECTURE', 'WORKSHOP', 'MASTERCLASS')</sql>
-    </changeSet>
-
-    <changeSet id="2024-04-16_17:50__createTalksTable" author="yuriiknowsjava">
+    <changeSet id="6_createTalksTable" author="yuriiknowsjava">
         <createTable tableName="talks">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" autoIncrement="true" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -77,8 +87,8 @@
                         referencedColumnNames="id"
                         nullable="false"/>
             </column>
-            <column name="type" type="talk_type">
-                <constraints nullable="false"/>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" checkConstraint="CHECK type IN ('LECTURE', 'WORKSHOP', 'MASTERCLASS')"/>
             </column>
             <column name="first_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -91,9 +101,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2024-04-16_18:08__linkTalksAndThemes" author="yuriiknowsjava">
+    <changeSet id="7_linkTalksAndThemes" author="yuriiknowsjava">
         <createTable tableName="talks_themes">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" autoIncrement="true" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
             <column name="talk_id" type="BIGINT">

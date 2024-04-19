@@ -1,11 +1,10 @@
 package edu.yuriiknowsjava.xpinjection.conferences.dto;
 
-import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
 public record ConferenceDto(
-        BigInteger id,
+        Long id,
         String name,
         ZonedDateTime startDate,
         ZonedDateTime endDate,

@@ -1,6 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.entities;
 
-import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +33,7 @@ public class Conference {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conferences_id_seq")
     @SequenceGenerator(name = GENERATOR_NAME, sequenceName = GENERATOR_NAME, allocationSize = 1)
-    private BigInteger id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;

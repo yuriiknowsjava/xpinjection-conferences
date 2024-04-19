@@ -1,6 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.services;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     public Set<Theme> getThemes(List<ThemeAdditionDto> themeAdditions) {
-        Set<BigInteger> ids = themeAdditions.stream().map(ThemeAdditionDto::id).collect(Collectors.toSet());
+        Set<Long> ids = themeAdditions.stream().map(ThemeAdditionDto::id).collect(Collectors.toSet());
         Set<String> tags = themeAdditions.stream().map(ThemeAdditionDto::tag).collect(Collectors.toSet());
         return themeRepository.findByIdInOrTagIn(ids, tags);
     }

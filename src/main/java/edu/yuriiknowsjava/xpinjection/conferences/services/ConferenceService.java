@@ -1,7 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.services;
 
-import java.math.BigInteger;
-
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceDto;
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceCreationDto;
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceReplacementDto;
@@ -16,5 +14,5 @@ public interface ConferenceService {
 
     ConferenceDto createConference(ConferenceCreationDto conferenceCreationDto);
 
-    ConferenceDto updateConference(BigInteger id, ConferenceReplacementDto creationConferenceDto);
+    ConferenceDto updateConference(Long id, ConferenceReplacementDto creationConferenceDto);
 }

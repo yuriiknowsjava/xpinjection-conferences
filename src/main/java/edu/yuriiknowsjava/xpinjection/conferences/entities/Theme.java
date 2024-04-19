@@ -1,6 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.entities;
 
-import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public class Theme {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = GENERATOR_NAME)
     @SequenceGenerator(name = GENERATOR_NAME, sequenceName = GENERATOR_NAME, allocationSize = 1)
-    private BigInteger id;
+    private Long id;
 
     @Column(name = "tag", nullable = false, unique = true)
     private String tag;

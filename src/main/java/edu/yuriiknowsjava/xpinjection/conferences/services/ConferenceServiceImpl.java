@@ -1,6 +1,5 @@
 package edu.yuriiknowsjava.xpinjection.conferences.services;
 
-import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +93,7 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     @Transactional
     @Override
-    public ConferenceDto updateConference(BigInteger id, ConferenceReplacementDto conferenceDtoToReplace) {
+    public ConferenceDto updateConference(Long id, ConferenceReplacementDto conferenceDtoToReplace) {
         Optional<Conference> conferenceOptional = conferenceRepository.findById(id);
         if (conferenceOptional.isEmpty()) {
             throw new EntityDoesNotExist(String.format("Conference not found by ID %d", id));
