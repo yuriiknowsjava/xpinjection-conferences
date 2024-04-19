@@ -36,7 +36,7 @@ public class Theme {
     @SequenceGenerator(name = GENERATOR_NAME, sequenceName = GENERATOR_NAME, allocationSize = 1)
     private BigInteger id;
 
-    @Column(name = "tag", nullable = false)
+    @Column(name = "tag", nullable = false, unique = true)
     private String tag;
 
     @Builder.Default
