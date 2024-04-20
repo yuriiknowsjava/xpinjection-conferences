@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import edu.yuriiknowsjava.xpinjection.conferences.configurations.ConferencesConfiguration;
 import edu.yuriiknowsjava.xpinjection.conferences.dto.ConferenceDto;
@@ -17,6 +18,7 @@ import edu.yuriiknowsjava.xpinjection.conferences.exceptions.EntityAlreadyExists
 import edu.yuriiknowsjava.xpinjection.conferences.exceptions.EntityDoesNotExist;
 import edu.yuriiknowsjava.xpinjection.conferences.mappers.ConferenceMapper;
 import edu.yuriiknowsjava.xpinjection.conferences.repositories.ConferenceRepository;
+import edu.yuriiknowsjava.xpinjection.conferences.repositories.ThemeRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ConferenceServiceImpl implements ConferenceService {
     private final ConferenceRepository conferenceRepository;
-    private final ThemeService themeService;
+    private final ThemeRepository themeRepository;
     private final ConferencesConfiguration conferencesConfiguration;
 
     @Transactional
@@ -52,17 +54,26 @@ public class ConferenceServiceImpl implements ConferenceService {
         conferenceToCreate.setStartDate(conferenceCreationDto.startDate());
         conferenceToCreate.setEndDate(conferenceCreationDto.endDate());
         conferenceToCreate.setDescription(conferenceCreationDto.description());
-        Conference conference = conferenceRepository.save(conferenceToCreate);
-        Set<Theme> themes = themeService.getThemes(conferenceCreationDto.themes());
+        Set<Theme> themes = getThemes(conferenceCreationDto.themes());
 
         // FIXME: fix N+1 issue
         themes.forEach(conferenceToCreate::addTheme);
+        Conference conference = conferenceRepository.save(conferenceToCreate);
         return ConferenceMapper.toDto(conference);
     }
 
+    private Set<Theme> getThemes(List<ThemeAdditionDto> themeAdditions) {
+        Set<Long> ids = themeAdditions.stream().map(ThemeAdditionDto::id).collect(Collectors.toSet());
+        Set<String> tags = themeAdditions.stream().map(ThemeAdditionDto::tag).collect(Collectors.toSet());
+        return themeRepository.findByIdInOrTagIn(ids, tags);
+    }
+
     private void validateConferenceDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-        if (startDate == null || endDate == null) {
-            throw new BusinessValidationException("Start date and end date cannot be null");
+        if (startDate == null) {
+            throw new BusinessValidationException("Start date date cannot be null");
+        }
+        if (endDate == null) {
+            throw new BusinessValidationException("End date cannot be null");
         }
         if (startDate.isAfter(ZonedDateTime.now())) {
             throw new BusinessValidationException("Start date cannot be in the past");

@@ -76,8 +76,8 @@
             <column name="id" autoIncrement="true" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/><!-- TODO should it be unique? -->
             </column>
             <column name="description" type="VARCHAR(1023)" defaultValue=""/>
             <column name="conference_id" type="BIGINT">
@@ -87,7 +87,7 @@
                         referencedColumnNames="id"
                         nullable="false"/>
             </column>
-            <column name="type" type="VARCHAR(255)">
+            <column name="talk_type" type="VARCHAR(255)">
                 <constraints nullable="false" checkConstraint="CHECK type IN ('LECTURE', 'WORKSHOP', 'MASTERCLASS')"/>
             </column>
             <column name="first_name" type="VARCHAR(255)">
@@ -96,8 +96,6 @@
             <column name="last_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="start_date" type="TIMESTAMP WITH TIME ZONE"/><!-- TODO: for removal -->
-            <column name="end_date" type="TIMESTAMP WITH TIME ZONE"/><!-- TODO: for removal -->
         </createTable>
     </changeSet>
 

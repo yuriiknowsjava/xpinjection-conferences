@@ -27,11 +27,4 @@ public class ThemeServiceImpl implements ThemeService {
         Page<Theme> themes = themeRepository.findAll(pageable);
         return themes.map(ThemeMapper::toDto);
     }
-
-    @Override
-    public Set<Theme> getThemes(List<ThemeAdditionDto> themeAdditions) {
-        Set<Long> ids = themeAdditions.stream().map(ThemeAdditionDto::id).collect(Collectors.toSet());
-        Set<String> tags = themeAdditions.stream().map(ThemeAdditionDto::tag).collect(Collectors.toSet());
-        return themeRepository.findByIdInOrTagIn(ids, tags);
-    }
 }
