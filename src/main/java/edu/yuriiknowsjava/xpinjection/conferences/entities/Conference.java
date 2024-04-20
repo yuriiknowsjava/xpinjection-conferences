@@ -33,7 +33,7 @@ public class Conference {
     private static final String GENERATOR_NAME = "conferences_id_seq";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conferences_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = GENERATOR_NAME)
     @SequenceGenerator(name = GENERATOR_NAME, sequenceName = GENERATOR_NAME, allocationSize = 1)
     private Long id;
 

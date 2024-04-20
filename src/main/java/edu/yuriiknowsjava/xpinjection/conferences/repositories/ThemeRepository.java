@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ThemeRepository extends ListPagingAndSortingRepository<Theme, Long> {
 
-    Set<Theme> findByIdInOrTagIn(Set<Long> ids, Set<String> names);
+    Set<Theme> findByIdInOrTagIn(Set<Long> ids, Set<String> tags);
 }

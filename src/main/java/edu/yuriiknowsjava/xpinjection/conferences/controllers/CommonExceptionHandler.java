@@ -25,7 +25,7 @@ class CommonExceptionHandler {
 
     @ExceptionHandler(EntityDoesNotExist.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    ResponseEntity<ApiErrorDto> handleEntityDoesNotExistException(EntityAlreadyExistsException e) {
+    ResponseEntity<ApiErrorDto> handleEntityDoesNotExistException(EntityDoesNotExist e) {
         return new ResponseEntity<>(new ApiErrorDto(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 

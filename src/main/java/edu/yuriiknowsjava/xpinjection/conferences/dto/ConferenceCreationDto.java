@@ -17,7 +17,6 @@ public record ConferenceCreationDto(
         @NotNull(message = CONFERENCE_START_DATE_CANNOT_BE_NULL) ZonedDateTime startDate,
         @NotNull(message = CONFERENCE_END_DATE_CANNOT_BE_NULL) ZonedDateTime endDate,
         String description,
-        @NotNull(message = CONFERENCE_SHOULD_HAVE_AT_LEAST_ONE_THEME)
         @NotEmpty(message = CONFERENCE_SHOULD_HAVE_AT_LEAST_ONE_THEME) List<ThemeAdditionDto> themes
 ) {
     public ConferenceCreationDto {

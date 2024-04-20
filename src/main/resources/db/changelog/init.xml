@@ -73,11 +73,11 @@
 
     <changeSet id="6_createTalksTable" author="yuriiknowsjava">
         <createTable tableName="talks">
-            <column name="id" autoIncrement="true" type="BIGSERIAL">
+            <column name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="VARCHAR(255)">
-                <constraints nullable="false"/><!-- TODO should it be unique? -->
+                <constraints nullable="false"/>
             </column>
             <column name="description" type="VARCHAR(1023)" defaultValue=""/>
             <column name="conference_id" type="BIGINT">
@@ -90,13 +90,13 @@
             <column name="talk_type" type="VARCHAR(255)">
                 <constraints nullable="false" checkConstraint="CHECK type IN ('LECTURE', 'WORKSHOP', 'MASTERCLASS')"/>
             </column>
-            <column name="first_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
+    </changeSet>
+    <changeSet id="6.1_addUniqueConstrainOnConferenceIdAndTitle" author="yuriiknowsjava">
+        <addUniqueConstraint tableName="talks" columnNames="conference_id,title"/>
+    </changeSet>
+    <changeSet id="6.2_addSequenceToTalks" author="yuriiknowsjava">
+        <addAutoIncrement tableName="talks" columnName="id" startWith="1" incrementBy="1" generationType="SEQUENCE"/>
     </changeSet>
 
     <changeSet id="7_linkTalksAndThemes" author="yuriiknowsjava">

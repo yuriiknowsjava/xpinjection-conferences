@@ -19,7 +19,7 @@ class ThemesController {
     private final ThemeService themeService;
 
     @GetMapping
-    public ResponseEntity<?> getThemes(Pageable pageable) {
+    ResponseEntity<?> getThemes(Pageable pageable) {
         return ResponseEntity.ok(themeService.getThemes(pageable));
     }
 }

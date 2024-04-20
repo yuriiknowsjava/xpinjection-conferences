@@ -26,18 +26,18 @@ class ConferencesController {
     private final ConferenceService conferenceService;
 
     @GetMapping
-    public ResponseEntity<?> getConferences(Pageable pageable) {
+    ResponseEntity<?> getConferences(Pageable pageable) {
         return ResponseEntity.ok(conferenceService.getConferences(pageable));
     }
 
     @PostMapping
-    public ResponseEntity<?> createConference(@RequestBody @Valid ConferenceCreationDto conferenceCreationDto) {
+    ResponseEntity<?> createConference(@RequestBody @Valid ConferenceCreationDto conferenceCreationDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(conferenceService.createConference(conferenceCreationDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateConference(@PathVariable Long id, @RequestBody @Valid ConferenceReplacementDto conferenceReplacementDto) {
+    ResponseEntity<?> updateConference(@PathVariable Long id, @RequestBody @Valid ConferenceReplacementDto conferenceReplacementDto) {
         return ResponseEntity.ok(conferenceService.updateConference(id, conferenceReplacementDto));
     }
 }
